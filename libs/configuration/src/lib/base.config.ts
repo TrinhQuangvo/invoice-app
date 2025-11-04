@@ -1,13 +1,34 @@
+import { IsBoolean, IsNotEmpty, IsString, validateSync } from 'class-validator';
+import { Logger } from '@nestjs/common';
+
 export class BaseConfiguration {
+  @IsString()
   NODE_ENV: string;
-  PORT: number;
-  IS_DEVELOPMENT: boolean;
+
+  @IsBoolean()
+  IS_DEV: boolean;
+
+  @IsString()
+  @IsNotEmpty()
   GLOBAL_PREFIX: string;
 
   constructor() {
     this.NODE_ENV = process.env['NODE_ENV'] || 'development';
-    this.PORT = parseInt(process.env['PORT'] || '3300', 10);
-    this.IS_DEVELOPMENT = this.NODE_ENV === 'development';
+    this.IS_DEV = this.NODE_ENV === 'development';
     this.GLOBAL_PREFIX = process.env['GLOBAL_PREFIX'] || 'api/v1';
+  }
+
+  public validate() {
+    const errors = validateSync(this);
+    console.log(errors);
+    if (errors.length > 0) {
+      const _errors = errors.map((error) => {
+        return error.children;
+      });
+
+      Logger.error(_errors);
+
+      throw new Error('Configuration is invalid');
+    }
   }
 }
