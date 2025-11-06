@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CONFIGURATION } from '../configurations';
 import { LoggerMiddleware } from '@common/middlewares';
+import { ExceptionInterceptor } from '@common/interceptors';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -12,7 +13,13 @@ import { LoggerMiddleware } from '@common/middlewares';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: 'APP_INTERCEPTOR',
+      useClass: ExceptionInterceptor,
+    },
+  ],
 })
 export class AppModule {
   static GLOBAL_PREFIX = CONFIGURATION.GLOBAL_PREFIX;

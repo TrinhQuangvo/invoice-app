@@ -1,2 +1,2 @@
-export * from './lib/base.config';
-export * from './lib/app.config';
+export * from './configs/base.config';
+export * from './configs/app.config';

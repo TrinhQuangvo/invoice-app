@@ -1,1 +1,1 @@
-export * from './lib/common.constant';
+export * from './constants/common.constant';
