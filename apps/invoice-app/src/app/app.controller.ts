@@ -1,6 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MessagePattern } from '@nestjs/microservices';
+
+interface Invoice {
+  invoiceId: number;
+  amount: number;
+  status: string;
+}
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -12,11 +18,7 @@ export class AppController {
   }
 
   @MessagePattern('get_invoice')
-  async getInvoice(invoiceId: number): Promise<any> {
-    return await {
-      invoiceId,
-      amount: 1000,
-      status: 'PAID',
-    };
+  async getInvoice(data: Invoice): Promise<Invoice> {
+    return await data;
   }
 }
