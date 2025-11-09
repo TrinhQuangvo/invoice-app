@@ -1,13 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { TcpLoggingInterceptor } from '@common/interceptors';
+import { Controller, Get, UseInterceptors } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-
+import { AppService } from './app.service';
 interface Invoice {
   invoiceId: number;
   amount: number;
   status: string;
 }
 @Controller()
+@UseInterceptors(new TcpLoggingInterceptor())
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -18,7 +19,7 @@ export class AppController {
   }
 
   @MessagePattern('get_invoice')
-  async getInvoice(data: Invoice): Promise<Invoice> {
-    return await data;
+  getInvoice(data: Invoice): Invoice {
+    return data;
   }
 }

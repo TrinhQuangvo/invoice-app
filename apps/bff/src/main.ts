@@ -43,7 +43,8 @@ async function bootstrap() {
     SwaggerModule.setup(`${globalPrefix}/docs`, app, documentFactory);
 
     await app.listen(port);
-    Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
+    Logger.log(`🚀 http://localhost:${port}/${globalPrefix}`);
+    Logger.log(`🚀 http://localhost:${port}/${globalPrefix}/docs`);
   } catch (error) {
     Logger.error(`❌ Application failed to start: ${error.message}`);
     process.exit(1);
