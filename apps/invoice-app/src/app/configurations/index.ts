@@ -7,9 +7,6 @@ class Configurations extends BaseConfiguration {
   @ValidateNested({ each: true })
   @Type(() => AppConfiguration)
   APP_CONFIG: AppConfiguration = new AppConfiguration();
-
-  @ValidateNested({ each: true })
-  @Type(() => TcpConfiguration)
   TCP_SERV = new TcpConfiguration();
 }
 export const CONFIGURATION = new Configurations();
