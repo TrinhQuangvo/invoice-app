@@ -2,6 +2,7 @@ import { ResponseDTO, TCPClient } from '@common/interfaces';
 import { Controller, Get, Inject } from '@nestjs/common';
 import { map } from 'rxjs';
 import { AppService } from './app.service';
+import { ProcessId, RequestParams } from '@common/decorators';
 
 interface Invoice {
   invoiceId: number;
@@ -22,10 +23,10 @@ export class AppController {
   }
 
   @Get('invoice')
-  async getInvoice() {
-    const payload = { invoiceId: 1, amount: 1000, status: 'PAID' };
+  async getInvoice(@RequestParams() invoiceId: number, @ProcessId() pid: string) {
+    const payload = { invoiceId, amount: 1000, status: 'PAID', pid };
     return this.invoiceClient
-      .send<Invoice>('get_invoice', { ...payload, message: 'Requesting invoice', statusCode: 200 })
+      .send<Invoice>('get_invoice', { ...payload, message: `Requesting invoice ${invoiceId}`, statusCode: 200 })
       .pipe(map((res) => new ResponseDTO({ data: res.data })));
   }
 }
