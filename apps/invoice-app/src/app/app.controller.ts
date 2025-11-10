@@ -21,6 +21,6 @@ export class AppController {
 
   @MessagePattern('get_invoice')
   getInvoice(data: Invoice): Response<Invoice> {
-    return new Response<Invoice>({ data });
+    return Response.success<Invoice>(data);
   }
 }
