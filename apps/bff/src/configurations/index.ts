@@ -1,4 +1,4 @@
-import { AppConfiguration, BaseConfiguration, MongooseConfig } from '@common/configuration';
+import { AppConfiguration, BaseConfiguration, MongoConfiguration } from '@common/configuration';
 import { Type } from 'class-transformer';
 import { ValidateNested } from 'class-validator';
 import { TcpConfiguration } from '@common/configuration';
@@ -12,9 +12,9 @@ class Configurations extends BaseConfiguration {
   @Type(() => TcpConfiguration)
   TCP_SERV = new TcpConfiguration();
 
-  @ValidateNested({ each: true })
-  @Type(() => MongooseConfig)
-  database: MongooseConfig = new MongooseConfig();
+  @ValidateNested()
+  @Type(() => MongoConfiguration)
+  MONGO_CONFIG = new MongoConfiguration();
 }
 export const CONFIGURATION = new Configurations();
 
