@@ -26,11 +26,11 @@ export class MongoConfiguration {
   SOCKET_TIMEOUT_MS?: number;
 
   constructor(data?: Partial<MongoConfiguration>) {
-    this.URL = data?.URL || process.env['MONGODB_URI'];
-    this.DB_NAME = data?.DB_NAME || process.env['MONGODB_DB_NAME'];
-    this.POOL_SIZE = data?.POOL_SIZE || Number(process.env['MONGODB_POOL_SIZE']) || 10;
-    this.CONNECT_TIMEOUT_MS = data?.CONNECT_TIMEOUT_MS || Number(process.env['MONGODB_CONNECT_TIMEOUT_MS']) || 15000;
-    this.SOCKET_TIMEOUT_MS = data?.SOCKET_TIMEOUT_MS || Number(process.env['MONGODB_SOCKET_TIMEOUT_MS']) || 360000;
+    this.URL = data?.URL || process.env['URL'];
+    this.DB_NAME = data?.DB_NAME || process.env['DB_NAME'];
+    this.POOL_SIZE = data?.POOL_SIZE || Number(process.env['POOL_SIZE']) || 10;
+    this.CONNECT_TIMEOUT_MS = data?.CONNECT_TIMEOUT_MS || Number(process.env['CONNECT_TIMEOUT_MS']) || 15000;
+    this.SOCKET_TIMEOUT_MS = data?.SOCKET_TIMEOUT_MS || Number(process.env['SOCKET_TIMEOUT_MS']) || 360000;
   }
 }
 

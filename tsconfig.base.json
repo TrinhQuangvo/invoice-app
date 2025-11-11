@@ -21,7 +21,8 @@
       "@common/utils": ["libs/utils/src/index.ts"],
       "@common/interfaces": ["libs/interfaces/src/index.ts"],
       "@common/interceptors": ["libs/interceptors/src/index.ts"],
-      "@common/decorators": ["libs/decorators/src/index.ts"]
+      "@common/decorators": ["libs/decorators/src/index.ts"],
+      "@common/schemas": ["libs/schemas/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
