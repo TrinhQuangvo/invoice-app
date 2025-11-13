@@ -7,8 +7,11 @@ import { InjectModel } from '@nestjs/mongoose';
 export class InvoiceRepository {
   constructor(@InjectModel(InvoiceModelName) private readonly invoiceModel: InvoiceModel) {}
 
-  create(payload: Partial<Invoice>) {
-    return this.invoiceModel.create({ ...payload, status: INVOICE_STATUS.CREATED });
+  create(data: Partial<Invoice>) {
+    return this.invoiceModel.create({
+      ...data,
+      status: INVOICE_STATUS.CREATED,
+    });
   }
 
   getById(id: string) {

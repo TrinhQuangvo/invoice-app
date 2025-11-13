@@ -10,5 +10,6 @@ import { InvoiceRepository } from './invoice.repository';
   imports: [MongoProvider, MongooseModule.forFeature([InvoiceDestination])],
   controllers: [InvoiceController],
   providers: [InvoiceService, InvoiceRepository],
+  exports: [InvoiceService],
 })
 export class InvoiceModule {}
