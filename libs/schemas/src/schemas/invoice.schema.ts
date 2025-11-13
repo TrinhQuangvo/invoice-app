@@ -1,7 +1,8 @@
+import { INVOICE_STATUS } from '@common/constants';
 import { Prop, Schema } from '@nestjs/mongoose';
+import { ObjectId } from 'mongodb';
 import { Model } from 'mongoose';
 import { BaseSchema, createSchema } from './base.schema';
-import { INVOICE_STATUS } from '@common/constants';
 
 class Client {
   @Prop({ type: String })
@@ -10,13 +11,11 @@ class Client {
   email: string;
   @Prop({ type: String })
   address: string;
-  @Prop({ type: String })
-  phone: string;
 }
 
 class Item {
-  @Prop({ type: String })
-  productId: string;
+  @Prop({ type: ObjectId, ref: 'Product' })
+  productId: ObjectId;
 
   @Prop({ type: String })
   name: string;
@@ -28,36 +27,36 @@ class Item {
   unitPrice: number;
 
   @Prop({ type: Number })
-  totalPrice: number;
-
-  @Prop({ type: Number })
-  vatPrice: number;
+  vatRate: number;
 
   @Prop({ type: Number })
   total: number;
 }
 
-@Schema()
+@Schema({
+  collection: 'invoice',
+})
 export class Invoice extends BaseSchema {
   @Prop({ type: Client })
   client: Client;
+
   @Prop({ type: Number })
   totalAmount: number;
 
   @Prop({ type: Number })
   vatAmount: number;
 
+  @Prop({ type: String, enum: INVOICE_STATUS, default: INVOICE_STATUS.CREATED })
+  status: INVOICE_STATUS;
+
   @Prop({ type: [Item] })
   items: Item[];
 
-  @Prop({ type: String, enum: INVOICE_STATUS, default: INVOICE_STATUS.PENDING })
-  status: INVOICE_STATUS;
+  @Prop({ type: ObjectId, ref: 'User', required: false })
+  supervisorId?: ObjectId;
 
   @Prop({ type: String, required: false })
-  supervisorId: string;
-
-  @Prop({ type: String, required: false })
-  fileUrl: string;
+  fileUrl?: string;
 }
 
 export const InvoiceSchema = createSchema(Invoice);

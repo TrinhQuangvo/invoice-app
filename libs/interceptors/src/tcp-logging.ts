@@ -13,7 +13,7 @@ export class TcpLoggingInterceptor implements NestInterceptor {
     const payload = args[0];
     const processId = payload?.processId || 'N/A';
 
-    this.logger.log(`[TCP][${handlerName}] Request - Process ID: ${processId} - Payload: ${JSON.stringify(payload)}`);
+    this.logger.log(`[TCP][${handlerName}] Request - Process ID: ${processId}`);
 
     return next.handle().pipe(
       tap(() => {
